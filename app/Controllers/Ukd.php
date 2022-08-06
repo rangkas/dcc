@@ -152,19 +152,11 @@ class Ukd extends ResourceController
         return view('/sertifikasi/lihat_ukd', ['product' => $dataProduct]);
     }
 
-    public function pdam()
-    {
-
-        return view('/pages/pdam');
-    }
-
-
-
-    public function edit($id_kendaraan = null)
+    public function edit($id_ukd = null)
     {
         //Mengubah Data Produk Hukum
-        $dataProduct = $this->model->where('id_kendaraan', $id_kendaraan)->first();
-        return view('/pages/edit_kendaraan', ['product' => $dataProduct]);
+        $dataProduct = $this->model->where('id_ukd', $id_ukd)->first();
+        return view('/sertifikasi/edit_ukd', ['product' => $dataProduct]);
     }
 
     public function delete($id_ukd = null)
@@ -175,60 +167,96 @@ class Ukd extends ResourceController
         return redirect()->to('/ukd');
     }
 
-    public function update($id_kendaraan = null)
+    public function update($id_ukd = null)
     {
 
         //Tangkap File Docx
-        $foto_stnk = $this->request->getFile('foto_stnk');
+        $foto = $this->request->getFile('foto');
         // cek logo, apakah logo tetap logo lama
-        if ($foto_stnk->getError() == 4) {
-            $namaFilefoto_stnk = $this->request->getVar('foto_stnk_lama');
+        if ($foto->getError() == 4) {
+            $namaFilefoto = $this->request->getVar('foto_lama');
         } else {
             //ambil nama file
-            $namaFilefoto_stnk = $foto_stnk->getName();
+            $namaFilefoto = $foto->getName();
             //pindahkan file
-            $foto_stnk->move('uploads/stnk', $namaFilefoto_stnk);
+            $foto->move('uploads/foto', $namaFilefoto);
         }
 
 
         //Tangkap File Docx
-        $foto_kendaraan = $this->request->getFile('foto_kendaraan');
+        $ijazah = $this->request->getFile('ijazah');
         // cek logo, apakah logo tetap logo lama
-        if ($foto_kendaraan->getError() == 4) {
-            $namaFilefoto_kendaraan = $this->request->getVar('foto_kendaraan_lama');
+        if ($ijazah->getError() == 4) {
+            $namaFileijazah = $this->request->getVar('ijazah_lama');
         } else {
             //ambil nama file
-            $namaFilefoto_kendaraan = $foto_kendaraan->getName();
+            $namaFileijazah = $ijazah->getName();
             //pindahkan file
-            $foto_kendaraan->move('uploads/kendaraan', $namaFilefoto_kendaraan);
+            $ijazah->move('uploads/ijazah', $namaFileijazah);
         }
 
-        $this->model->where('id_kendaraan', $id_kendaraan)->set([
 
-            'no_registrasi' => $this->request->getVar('no_registrasi'),
-            'nama_pemilik' => $this->request->getVar('nama_pemilik'),
-            'alamat' => $this->request->getVar('alamat'),
-            'merk' => $this->request->getVar('merk'),
-            'tipe' => $this->request->getVar('tipe'),
-            'jenis' => $this->request->getVar('jenis'),
-            'model' => $this->request->getVar('model'),
-            'tahun_pembuatan' => $this->request->getVar('tahun_pembuatan'),
-            'isi_silinder' => $this->request->getVar('isi_silinder'),
-            'no_rangka' => $this->request->getVar('no_rangka'),
+        //Tangkap File Docx
+        $ktp = $this->request->getFile('ktp');
+        // cek logo, apakah logo tetap logo lama
+        if ($ktp->getError() == 4) {
+            $namaFilektp = $this->request->getVar('ktp_lama');
+        } else {
+            //ambil nama file
+            $namaFilektp = $ktp->getName();
+            //pindahkan file
+            $ktp->move('uploads/ktp', $namaFilektp);
+        }
 
-            'no_mesin' => $this->request->getVar('no_mesin'),
-            'warna' => $this->request->getVar('warna'),
-            'bahan_bakar' => $this->request->getVar('bahan_bakar'),
-            'warna_tnkb' => $this->request->getVar('warna_tnkb'),
-            'no_bpkb' => $this->request->getVar('no_bpkb'),
-            'kode_lokasi' => $this->request->getVar('kode_lokasi'),
-            'foto_stnk' =>  $namaFilefoto_stnk,
-            'foto_kendaraan' => $namaFilefoto_kendaraan,
-            'pinjam_pakai' => $this->request->getVar('pinjam_pakai'),
+
+        //Tangkap File Docx
+        $kk = $this->request->getFile('kk');
+        // cek logo, apakah logo tetap logo lama
+        if ($kk->getError() == 4) {
+            $namaFilekk = $this->request->getVar('kk_lama');
+        } else {
+            //ambil nama file
+            $namaFilekk = $kk->getName();
+            //pindahkan file
+            $kk->move('uploads/kk', $namaFilekk);
+        }
+
+
+        //Tangkap File Docx
+        $spp = $this->request->getFile('spp');
+        // cek logo, apakah logo tetap logo lama
+        if ($spp->getError() == 4) {
+            $namaFilespp = $this->request->getVar('spp_lama');
+        } else {
+            //ambil nama file
+            $namaFilespp = $spp->getName();
+            //pindahkan file
+            $spp->move('uploads/spp', $namaFilespp);
+        }
+
+
+
+        $this->model->where('id_ukd', $id_ukd)->set([
+
+            'nama' => $this->request->getVar('nama'),
+            'npm' => $this->request->getVar('npm'),
+            'prodi' => $this->request->getVar('prodi'),
+            'skema' => $this->request->getVar('skema'),
+            'semester' => $this->request->getVar('semester'),
+            'nilai_prasyarat' => $this->request->getVar('nilai_prasyarat'),
+            'tempat_lahir' => $this->request->getVar('tempat_lahir'),
+            'tanggal_lahir' => $this->request->getVar('tanggal_lahir'),
+            'email' => $this->request->getVar('email'),
+            'no_hp' => $this->request->getVar('no_hp'),
+            'foto' =>  $namaFilefoto,
+            'ijazah' => $namaFileijazah,
+            'ktp' => $namaFilektp,
+            'kk' => $namaFilekk,
+            'spp' => $namaFilespp,
         ])->update();
 
         session()->setFlashdata('pesan', 'Data Berhasil Diedit.');
 
-        return redirect()->to('/kendaraan');
+        return redirect()->to('/ukd');
     }
 }

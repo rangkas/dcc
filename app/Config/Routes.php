@@ -23,6 +23,8 @@ $routes->setTranslateURIDashes(false);
 $routes->set404Override();
 $routes->setAutoRoute(true);
 $routes->resource('ukd');
+$routes->resource('toefl');
+$routes->resource('pkl');
 
 
 
@@ -41,6 +43,7 @@ $routes->resource('ukd');
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
+
 
 /*
  * --------------------------------------------------------------------

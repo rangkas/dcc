@@ -17,7 +17,7 @@ $nama = $session->get('nama');
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Daftar Sertifikasi UKD
+                            <h4>Daftar Sertifikasi TOEFL
                             </h4>
 
                             <?php if (!empty(session()->getFlashdata('pesan'))) : ?>
@@ -29,7 +29,7 @@ $nama = $session->get('nama');
                     </div>
 
 
-                    <form action="/ukd" method="POST" enctype='multipart/form-data'>
+                    <form action="/toefl" method="POST" enctype='multipart/form-data'>
                         <?php csrf_field(); ?>
                         <div class="card-body">
                             <?php if (!empty(session()->getFlashdata('error'))) : ?>
@@ -40,6 +40,10 @@ $nama = $session->get('nama');
                                 </div>
                             <?php endif; ?>
                             <div class="card-body">
+
+                                <input type="hidden" required readonly id="email-id-vertical" class="form-control" value="0" name="nilai_listening">
+                                <input type="hidden" required readonly id="email-id-vertical" class="form-control" value="0" name="nilai_struktur">
+                                <input type="hidden" required readonly id="email-id-vertical" class="form-control" value="0" name="nilai_reading">
 
 
                                 <table width="100%">
@@ -73,20 +77,6 @@ $nama = $session->get('nama');
                                         <td>
                                             <div class="col-12">
                                                 <div class="form-group">
-                                                    <label for="email-id-vertical">Skema / Jenis Kompetensi Keahlian</label>
-                                                    <select class="form-select" required id="basicSelect" name="skema">
-                                                        <option value="JA">JA</option>
-                                                        <option value="JWP">JWP</option>
-                                                        <option value="JNA">JNA</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="col-12">
-                                                <div class="form-group">
                                                     <label for="contact-info-vertical">Semester</label>
                                                     <select required class="form-select" id="basicSelect" name="semester">
                                                         <option value="3">3</option>
@@ -97,38 +87,21 @@ $nama = $session->get('nama');
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
-                                            <div class="form-group">
-                                                <label for="first-name-vertical">Nilai Mata Kuliah Prasyarat</label>
-                                                <select required class="form-select" id="basicSelect" name="nilai_prasyarat">
-                                                    <option value="A">A</option>
-                                                    <option value="B">B</option>
-                                                    <option value="C">C</option>
-
-                                                </select>
-                                            </div>
-                                        </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <div class="col-12">
-                                                <label for="contact-info-vertical">Tempat Lahir</label>
-
                                                 <div class="form-group">
-                                                    <input required class="form-control" type="text" name="tempat_lahir" placeholder="Tempat Lahir">
+                                                    <label for="first-name-vertical">Nilai Mata Kuliah Prasyarat</label>
+                                                    <select required class="form-select" id="basicSelect" name="nilai_prasyarat">
+                                                        <option value="A">A</option>
+                                                        <option value="B">B</option>
+                                                        <option value="C">C</option>
+
+                                                    </select>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
-                                            <div class="form-group">
-                                                <label for="first-name-vertical">Tanggal Lahir</label>
-                                                <input required class="form-control" type="date" name="tanggal_lahir" placeholder="Tanggal Lahir">
-
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
                                         <td>
                                             <div class="col-12">
                                                 <label for="contact-info-vertical">Email</label>
@@ -138,6 +111,11 @@ $nama = $session->get('nama');
                                                 </div>
                                             </div>
                                         </td>
+                                    </tr>
+
+
+                                    <tr>
+
                                         <td>
                                             <div class="form-group">
                                                 <label for="first-name-vertical">No Hp Aktif (WA)</label>
@@ -170,25 +148,13 @@ $nama = $session->get('nama');
                                     <tr>
                                         <td>
                                             <div class="form-group">
-                                                <label for="first-name-vertical">Scan Asli KTP</label>
+                                                <label for="first-name-vertical">Scan Asli SKHU</label>
                                                 <div class="form-group">
-                                                    <input required name="ktp" type="file" id="foto">
+                                                    <input required name="skhu" type="file" id="foto">
                                                 </div>
 
                                             </div>
                                         </td>
-                                        <td>
-                                            <div class="form-group">
-                                                <label for="first-name-vertical">Scan Asli KK</label>
-                                                <div class="form-group">
-                                                    <input required name="kk" type="file" id="foto">
-                                                </div>
-
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
                                         <td>
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Upload Bukti Pembayaran (SPP)</label>
@@ -197,10 +163,8 @@ $nama = $session->get('nama');
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
-
-                                        </td>
                                     </tr>
+
 
                                 </table>
 

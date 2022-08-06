@@ -1,12 +1,6 @@
 <?= $this->extend('layout/template'); ?>
 <?= $this->section('content'); ?>
 
-<?php
-$session = session();
-$npm = $session->get('npm');
-$nama = $session->get('nama');
-?>
-
 <div class="page-content">
     <section class="row">
         <div class="col-12 col-lg-12">
@@ -17,28 +11,21 @@ $nama = $session->get('nama');
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Daftar Sertifikasi UKD
+                            <h4>Edit Data Pendaftaran Sertifikasi UKD
                             </h4>
 
-                            <?php if (!empty(session()->getFlashdata('pesan'))) : ?>
-                                <div class="alert alert-success" role="alert">
-                                    <?php echo session()->getFlashdata('pesan'); ?>
-                                </div>
                         </div>
-                    <?php endif; ?>
-                    </div>
+
+                        <form action="/ukd/<?= $product->id_ukd; ?>" method="POST" enctype='multipart/form-data'>
+                            <?php csrf_field() ?>
+                            <input type="hidden" name="_method" value="PUT">
+                            <input type="hidden" value="<?= $product->foto; ?>" name="foto_lama">
+                            <input type="hidden" value="<?= $product->ijazah; ?>" name="ijazah_lama">
+                            <input type="hidden" value="<?= $product->ktp; ?>" name="ktp_lama">
+                            <input type="hidden" value="<?= $product->kk; ?>" name="kk_lama">
+                            <input type="hidden" value="<?= $product->spp; ?>" name="spp_lama">
 
 
-                    <form action="/ukd" method="POST" enctype='multipart/form-data'>
-                        <?php csrf_field(); ?>
-                        <div class="card-body">
-                            <?php if (!empty(session()->getFlashdata('error'))) : ?>
-                                <div class="alert alert-danger" role="alert">
-                                    <h4>Periksa Entrian Form</h4>
-                                    </hr />
-                                    <?php echo session()->getFlashdata('error'); ?>
-                                </div>
-                            <?php endif; ?>
                             <div class="card-body">
 
 
@@ -48,7 +35,7 @@ $nama = $session->get('nama');
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="email-id-vertical">Nama</label>
-                                                    <input type="text" required readonly id="email-id-vertical" class="form-control" value="<?php echo $nama; ?>" name="nama" placeholder="Nama">
+                                                    <input type="text" id="email-id-vertical" class="form-control" value="<?= $product->nama; ?>" name="nama" placeholder="Nama">
                                                 </div>
                                             </div>
                                         </td>
@@ -56,7 +43,7 @@ $nama = $session->get('nama');
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="email-id-vertical">NPM</label>
-                                                    <input type="text" required readonly id="email-id-vertical" class="form-control" value="<?php echo $npm; ?>" name="npm" placeholder="NPM">
+                                                    <input type="text" id="email-id-vertical" class="form-control" value="<?= $product->npm; ?>" name="npm" placeholder="NPM">
                                                 </div>
                                             </div>
                                         </td>
@@ -66,7 +53,7 @@ $nama = $session->get('nama');
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="email-id-vertical">Program Studi</label>
-                                                    <input type="text" required readonly id="email-id-vertical" class="form-control" value="Manajemen Informatika" name="prodi" placeholder="Prodi">
+                                                    <input type="text" id="email-id-vertical" class="form-control" name="prodi" value="<?= $product->prodi; ?>">
                                                 </div>
                                             </div>
                                         </td>
@@ -74,11 +61,7 @@ $nama = $session->get('nama');
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="email-id-vertical">Skema / Jenis Kompetensi Keahlian</label>
-                                                    <select class="form-select" required id="basicSelect" name="skema">
-                                                        <option value="JA">JA</option>
-                                                        <option value="JWP">JWP</option>
-                                                        <option value="JNA">JNA</option>
-                                                    </select>
+                                                    <input type="text" id="email-id-vertical" class="form-control" name="skema" value="<?= $product->skema; ?>">
                                                 </div>
                                             </div>
                                         </td>
@@ -88,24 +71,16 @@ $nama = $session->get('nama');
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="contact-info-vertical">Semester</label>
-                                                    <select required class="form-select" id="basicSelect" name="semester">
-                                                        <option value="3">3</option>
-                                                        <option value="4">4</option>
-                                                        <option value="5">5</option>
-                                                        <option value="6">6</option>
-                                                    </select>
+                                                    <input type="text" id="email-id-vertical" class="form-control" name="semester" value="<?= $product->semester; ?>">
+
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Nilai Mata Kuliah Prasyarat</label>
-                                                <select required class="form-select" id="basicSelect" name="nilai_prasyarat">
-                                                    <option value="A">A</option>
-                                                    <option value="B">B</option>
-                                                    <option value="C">C</option>
+                                                <input type="text" id="email-id-vertical" class="form-control" name="nilai_prasyarat" value="<?= $product->nilai_prasyarat; ?>">
 
-                                                </select>
                                             </div>
                                         </td>
                                     </tr>
@@ -115,14 +90,16 @@ $nama = $session->get('nama');
                                                 <label for="contact-info-vertical">Tempat Lahir</label>
 
                                                 <div class="form-group">
-                                                    <input required class="form-control" type="text" name="tempat_lahir" placeholder="Tempat Lahir">
+                                                    <input type="text" id="email-id-vertical" class="form-control" name="tempat_lahir" value="<?= $product->tempat_lahir; ?>">
+
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Tanggal Lahir</label>
-                                                <input required class="form-control" type="date" name="tanggal_lahir" placeholder="Tanggal Lahir">
+                                                <input type="date" id="email-id-vertical" class="form-control" name="tanggal_lahir" value="<?= $product->tanggal_lahir; ?>">
+
 
                                             </div>
                                         </td>
@@ -134,14 +111,16 @@ $nama = $session->get('nama');
                                                 <label for="contact-info-vertical">Email</label>
 
                                                 <div class="form-group">
-                                                    <input required class="form-control" type="email" name="email" placeholder="Email">
+                                                    <input type="text" id="email-id-vertical" class="form-control" name="email" value="<?= $product->email; ?>">
+
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="form-group">
                                                 <label for="first-name-vertical">No Hp Aktif (WA)</label>
-                                                <input required class="form-control" type="text" name="no_hp" placeholder="No Hp Aktif (WA)">
+                                                <input type="text" id="email-id-vertical" class="form-control" name="no_hp" value="<?= $product->no_hp; ?>">
+
                                             </div>
                                         </td>
                                     </tr>
@@ -152,7 +131,7 @@ $nama = $session->get('nama');
                                                 <label for="contact-info-vertical">Foto Formal 3x4 Terbaru</label>
 
                                                 <div class="form-group">
-                                                    <input required name="foto" type="file" id="foto">
+                                                    <input name="foto" type="file" id="foto">
                                                 </div>
                                             </div>
                                         </td>
@@ -160,7 +139,7 @@ $nama = $session->get('nama');
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Scan Asli Ijazah</label>
                                                 <div class="form-group">
-                                                    <input required name="ijazah" type="file" id="foto">
+                                                    <input name="ijazah" type="file" id="foto">
                                                 </div>
 
                                             </div>
@@ -172,7 +151,7 @@ $nama = $session->get('nama');
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Scan Asli KTP</label>
                                                 <div class="form-group">
-                                                    <input required name="ktp" type="file" id="foto">
+                                                    <input name="ktp" type="file" id="foto">
                                                 </div>
 
                                             </div>
@@ -181,7 +160,7 @@ $nama = $session->get('nama');
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Scan Asli KK</label>
                                                 <div class="form-group">
-                                                    <input required name="kk" type="file" id="foto">
+                                                    <input name="kk" type="file" id="foto">
                                                 </div>
 
                                             </div>
@@ -193,7 +172,7 @@ $nama = $session->get('nama');
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Upload Bukti Pembayaran (SPP)</label>
                                                 <div class="form-group">
-                                                    <input required name="spp" type="file" id="foto">
+                                                    <input name="spp" type="file" id="foto">
                                                 </div>
                                             </div>
                                         </td>
@@ -205,19 +184,25 @@ $nama = $session->get('nama');
                                 </table>
 
 
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-danger">Edit</button>
+                                </div>
+
 
                             </div>
-                            <!-- /.card-body -->
 
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </div>
-                        </div>
-                    </form>
+
+
+                    </div>
+                    <!-- /.card-body -->
+
 
                 </div>
+                </form>
+
             </div>
         </div>
+</div>
 </div>
 
 </section>

@@ -75,7 +75,7 @@
                                         <a href="/ukd">UKD</a>
                                     </li>
                                     <li class="submenu-item ">
-                                        <a href="/sertifikasi/toefl">TOEFL</a>
+                                        <a href="/toefl">TOEFL</a>
                                     </li>
                                     <li class="submenu-item ">
                                         <a href="/sertifikasi/jadwal">Informasi Jadwal</a>
@@ -86,14 +86,14 @@
                                     $this->session = session();
                                 ?>
                                     <li class="submenu-item ">
-                                        <a href="/sertifikasi/nilai">Nilai</a>
+                                        <a href="/toefl">Nilai</a>
                                     </li>
-                                    <li class="submenu-item ">
+                                    <!-- <li class="submenu-item ">
                                         <a href="/sertifikasi/rekap_nilai">Rekap Nilai</a>
-                                    </li>
-                                    <li class="submenu-item ">
+                                    </li> -->
+                                    <!-- <li class="submenu-item ">
                                         <a href="/sertifikasi/sertifikat">Sertifikat</a>
-                                    </li>
+                                    </li> -->
                                 <?php } ?>
 
                             </ul>
@@ -116,7 +116,7 @@
                                     $this->session = session();
                                 ?>
                                     <li class="submenu-item ">
-                                        <a href="/pkl/daftar">Pendaftaran</a>
+                                        <a href="/pkl">Pendaftaran</a>
                                     </li>
                                     <li class="submenu-item ">
                                         <a href="/pkl/bukti">Bukti Persetujuan Tempat PKL</a>
