@@ -130,7 +130,7 @@
                                     $this->session = session();
                                 ?>
                                     <li class="submenu-item ">
-                                        <a href="/pkl/pengesahan">Pengesahan Tempat PKL</a>
+                                        <a href="/pengesahanpkl">Pengesahan Tempat PKL</a>
                                     </li>
                                     <li class="submenu-item ">
                                         <a href="/pkl/pembimbing">Penentuan Pembimbing PKL</a>
@@ -138,9 +138,9 @@
                                     <li class="submenu-item ">
                                         <a href="/pkl/nilai">Input Nilai</a>
                                     </li>
-                                    <li class="submenu-item ">
+                                    <!-- <li class="submenu-item ">
                                         <a href="/pkl/rekap">Rekap Nilai</a>
-                                    </li>
+                                    </li> -->
                                 <?php } ?>
 
                             </ul>

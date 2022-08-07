@@ -18,7 +18,12 @@ class Ukd extends ResourceController
 
     public function index()
     {
-        if ($this->session->get('status') == 'admin' || $this->session->get('status') == 'mahasiswa') {
+
+
+        if ($this->session->get('status') == 'mahasiswa') {
+            $dataProduct = $this->model->getUkdMahasiswa()->getResult();;
+            return view('sertifikasi/ukd', ['produk' => $dataProduct]);
+        } elseif ($this->session->get('status') == 'admin' || $this->session->get('status') == 'prodi') {
             $dataProduct = $this->model->getUkd()->getResult();;
             return view('sertifikasi/ukd', ['produk' => $dataProduct]);
         } else {

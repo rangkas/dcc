@@ -21,4 +21,15 @@ class ToeflModel extends Model
             ->get();
         return $query;
     }
+
+    public function getToeflMahasiswa()
+    {
+        $session = session();
+        $npm = $session->get('npm');
+        $query =  $this->db->table('sp_toefl')
+            ->select('id_toefl,nama,npm,prodi,nilai_listening,nilai_struktur,nilai_reading')
+            ->where(['npm' => $npm])
+            ->get();
+        return $query;
+    }
 }

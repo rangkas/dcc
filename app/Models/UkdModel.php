@@ -21,4 +21,16 @@ class UkdModel extends Model
             ->get();
         return $query;
     }
+
+    public function getUkdMahasiswa()
+    {
+
+        $session = session();
+        $npm = $session->get('npm');
+        $query =  $this->db->table('sp_ukd')
+            ->select('id_ukd,nama,npm,prodi,skema')
+            ->where(['npm' => $npm])
+            ->get();
+        return $query;
+    }
 }

@@ -1,34 +1,6 @@
 <?= $this->extend('layout/template'); ?>
 <?= $this->section('content'); ?>
 
-<?php
-$session = session();
-$npm = $session->get('npm');
-$nama = $session->get('nama');
-?>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js">
-</script>
-<script type='text/javascript'>
-    $(window).load(function() {
-        $("#bekerja").change(function() {
-            console.log($("#bekerja option:selected").val());
-            if ($("#bekerja option:selected").val() != 'bekerja') {
-                $('#jabatan').prop('hidden', 'true');
-                $('#bidang').prop('hidden', 'true');
-                $('#lama_bekerja').prop('hidden', 'true');
-
-            } else {
-
-                $('#jabatan').prop('hidden', false);
-                $('#bidang').prop('hidden', false);
-                $('#lama_bekerja').prop('hidden', false);
-            }
-        });
-    });
-</script>
-
-
 <div class="page-content">
     <section class="row">
         <div class="col-12 col-lg-12">
@@ -39,36 +11,23 @@ $nama = $session->get('nama');
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Form Pendaftaran PKL
+                            <h4>Lihat Data Pendaftaran PKL
                             </h4>
+                            <?php
+                            if ($product->disetujui == 2) {
+                            ?>
+                                Alasan Penolakan : <br>
+                                <font color="red"> <?= $product->alasan; ?></font>
 
-                            <?php if (!empty(session()->getFlashdata('pesan'))) : ?>
-                                <div class="alert alert-success" role="alert">
-                                    <?php echo session()->getFlashdata('pesan'); ?>
-                                </div>
+                            <?php
+                            }
+                            ?>
+
                         </div>
-                    <?php endif; ?>
-                    </div>
 
-
-                    <form action="/pkl" method="POST" enctype='multipart/form-data'>
-                        <?php csrf_field(); ?>
                         <div class="card-body">
-                            <?php if (!empty(session()->getFlashdata('error'))) : ?>
-                                <div class="alert alert-danger" role="alert">
-                                    <h4>Periksa Entrian Form</h4>
-                                    </hr />
-                                    <?php echo session()->getFlashdata('error'); ?>
-                                </div>
-                            <?php endif; ?>
+
                             <div class="card-body">
-
-                                <input type="hidden" value="0" name="disetujui">
-                                <input type="hidden" value="0" name="alasan">
-                                <input type="hidden" value="0" name="dosen_pembimbing">
-                                <input type="hidden" value="0" name="nilai_dosen_pembimbing">
-                                <input type="hidden" value="0" name="nilai_pembimbing_instansi">
-
 
                                 <table width="100%">
                                     <tr>
@@ -86,7 +45,7 @@ $nama = $session->get('nama');
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="email-id-vertical">Nama</label>
-                                                    <input type="text" required readonly id="email-id-vertical" class="form-control" value="<?php echo $nama; ?>" name="nama" placeholder="Nama">
+                                                    <input type="text" required readonly readonly id="email-id-vertical" class="form-control" value="<?= $product->nama; ?>" name="nama">
                                                 </div>
                                             </div>
                                         </td>
@@ -94,7 +53,7 @@ $nama = $session->get('nama');
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="email-id-vertical">NPM</label>
-                                                    <input type="text" required readonly id="email-id-vertical" class="form-control" value="<?php echo $npm; ?>" name="npm" placeholder="NPM">
+                                                    <input type="text" required readonly readonly id="email-id-vertical" class="form-control" value="<?= $product->npm; ?>" name="npm" placeholder="NPM">
                                                 </div>
                                             </div>
                                         </td>
@@ -104,32 +63,19 @@ $nama = $session->get('nama');
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="email-id-vertical">Program Studi</label>
-                                                    <input type="text" required readonly id="email-id-vertical" class="form-control" value="Manajemen Informatika" name="prodi" placeholder="Prodi">
+                                                    <input type="text" required readonly readonly id="email-id-vertical" class="form-control" value="<?= $product->prodi; ?>" name="prodi" placeholder="Prodi">
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="form-group">
                                                 <label for="first-name-vertical">No Hp Aktif (WA)</label>
-                                                <input required class="form-control" type="text" name="no_hp" placeholder="No Hp Aktif (WA)">
+                                                <input required readonly class="form-control" type="text" value="<?= $product->no_hp; ?>" name="no_hp" placeholder="No Hp Aktif (WA)">
                                             </div>
                                         </td>
 
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label for="contact-info-vertical"><b>Status Bekerja</b></label>
-                                                    <select required class="form-select" id="bekerja" name="semester">
-                                                        <option value="bekerja">Sudah Bekerja</option>
-                                                        <option value="belum">Belum Bekerja</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </td>
 
-                                    </tr>
                                     <tr>
                                         <td>
                                             <div class="col-12">
@@ -147,14 +93,14 @@ $nama = $session->get('nama');
                                                 <label for="contact-info-vertical">Nama Instansi</label>
 
                                                 <div class="form-group">
-                                                    <input required class="form-control" type="text" name="nama_instansi" placeholder="Nama Instansi">
+                                                    <input required readonly class="form-control" type="text" value="<?= $product->nama_instansi; ?>" name="nama_instansi" placeholder="Nama Instansi">
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Alamat Instansi</label>
-                                                <input required class="form-control" type="text" name="alamat_instansi" placeholder="Alamat Instansi">
+                                                <input required readonly class="form-control" type="text" value="<?= $product->alamat_instansi; ?>" name="alamat_instansi" placeholder="Alamat Instansi">
                                             </div>
                                         </td>
                                     </tr>
@@ -164,14 +110,14 @@ $nama = $session->get('nama');
                                             <div class="col-12">
                                                 <label for="contact-info-vertical">Jabatan</label>
                                                 <div class="form-group">
-                                                    <input class="form-control" type="text" name="jabatan" placeholder="Jabatan" id="jabatan">
+                                                    <input class="form-control" readonly type="text" value="<?= $product->jabatan; ?>" name="jabatan" placeholder="Jabatan" id="jabatan">
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Bidang</label>
-                                                <input class="form-control" type="text" name="bidang" placeholder="Bidang" id="bidang">
+                                                <input class="form-control " readonly type="text" value="<?= $product->bidang; ?>" name="bidang" placeholder="Bidang" id="bidang">
                                             </div>
                                         </td>
                                     </tr>
@@ -182,7 +128,7 @@ $nama = $session->get('nama');
                                                 <label for="contact-info-vertical">Lama Bekerja [Tahun] [Bulan]</label>
 
                                                 <div class="form-group">
-                                                    <input class="form-control" type="text" name="lama_bekerja" placeholder="Lama Bekerja [Tahun] [Bulan]" id="lama_bekerja">
+                                                    <input class="form-control" readonly type="text" value="<?= $product->lama_bekerja; ?>" name="lama_bekerja" placeholder="Lama Bekerja [Tahun] [Bulan]" id="lama_bekerja">
 
                                                 </div>
                                             </div>
@@ -190,7 +136,7 @@ $nama = $session->get('nama');
                                         <td>
                                             <div class="form-group">
                                                 <label for="first-name-vertical">No HP Instansi</label>
-                                                <input required class="form-control" type="text" name="no_instansi" placeholder="No HP Instansi">
+                                                <input required readonly class="form-control" type="text" value="<?= $product->no_instansi; ?>" name="no_instansi" placeholder="No HP Instansi">
                                             </div>
                                         </td>
 
@@ -215,7 +161,8 @@ $nama = $session->get('nama');
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Scan Berkas Persyaratan PKL</label>
                                                 <div class="form-group">
-                                                    <input required name="persyaratan" type="file">
+
+                                                    <a href="<?php base_url(); ?>/uploads/pkl/persyaratan/<?= $product->persyaratan; ?>"> Download </a>
                                                 </div>
 
                                             </div>
@@ -224,7 +171,9 @@ $nama = $session->get('nama');
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Transkrip Nilai</label>
                                                 <div class="form-group">
-                                                    <input required name="transkrip" type="file">
+
+                                                    <a href="<?php base_url(); ?>/uploads/pkl/transkrip/<?= $product->transkrip; ?>"> Download </a>
+
                                                 </div>
 
                                             </div>
@@ -236,7 +185,9 @@ $nama = $session->get('nama');
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Sertifikat Ujian Kompetensi Dasar (Office)</label>
                                                 <div class="form-group">
-                                                    <input required name="sertifikat" type="file">
+
+                                                    <a href="<?php base_url(); ?>/uploads/pkl/sertifikat/<?= $product->sertifikat; ?>"> Download </a>
+
                                                 </div>
                                             </div>
                                         </td>
@@ -244,7 +195,8 @@ $nama = $session->get('nama');
                                             <div class="form-group">
                                                 <label for="first-name-vertical">FRS Pengambilan MK PKL</label>
                                                 <div class="form-group">
-                                                    <input required name="frs" type="file">
+                                                    <a href="<?php base_url(); ?>/uploads/pkl/frs/<?= $product->frs; ?>"> Download </a>
+
                                                 </div>
                                             </div>
                                         </td>
@@ -254,7 +206,9 @@ $nama = $session->get('nama');
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Scan Bukti Pembayaran PKL</label>
                                                 <div class="form-group">
-                                                    <input required name="pembayaran_pkl" type="file">
+
+                                                    <a href="<?php base_url(); ?>/uploads/pkl/pembayaran_pkl/<?= $product->pembayaran_pkl; ?>"> Download </a>
+
                                                 </div>
                                             </div>
                                         </td>
@@ -276,7 +230,9 @@ $nama = $session->get('nama');
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Scan Surat Keterangan Bekerja Bermatrai Rp 10.000</label>
                                                 <div class="form-group">
-                                                    <input required name="surat_bekerja" type="file">
+
+                                                    <a href="<?php base_url(); ?>/uploads/pkl/surat_bekerja/<?= $product->surat_bekerja; ?>"> Download </a>
+
                                                 </div>
                                             </div>
                                         </td>
@@ -284,7 +240,9 @@ $nama = $session->get('nama');
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Scan Slip Gaji 2 Bulan Terakhir</label>
                                                 <div class="form-group">
-                                                    <input required name="slip_gaji" type="file">
+
+                                                    <a href="<?php base_url(); ?>/uploads/pkl/slip_gaji/<?= $product->slip_gaji; ?>"> Download </a>
+
                                                 </div>
                                             </div>
                                         </td>
@@ -292,30 +250,107 @@ $nama = $session->get('nama');
 
 
                                 </table>
-                                <div class="form-group">
+                                <form action="/pengesahanpkl/<?= $product->id_pkl; ?>" method="POST" enctype='multipart/form-data'>
+                                    <?php csrf_field() ?>
+                                    <input type="hidden" name="_method" value="PUT">
+                                    <input type="hidden" name="disetujui" value="1">
 
-                                    <div class="form-group">
-                                        <input required type="checkbox" id="checkbox1" class="form-check-input" name="kesanggupan" value="1">
-                                        <label for="checkbox1">Kesanggupan Pengumpulan Berkas Fotocopy Persyaratan PKL yang dimasukkan kedalam map buffalo warna merah</label>
+                                    <div class="modal fade text-left" id="default" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="myModalLabel1">Verifikasi Lokasi PKL</h5>
+                                                    <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                                                        <i data-feather="x"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>
+                                                        Yakin Verifikasi Lokasi PKL ?<br><br>
+
+                                                        Nama Instansi : <?= $product->nama_instansi; ?> <br>
+                                                        Alamat Instansi : <?= $product->alamat_instansi; ?> <br>
+                                                        No. Telp. Instansi : <?= $product->no_instansi; ?> <br>
+
+                                                    </p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn" data-bs-dismiss="modal">
+                                                        <i class="bx bx-x d-block d-sm-none"></i>
+                                                        <span class="d-none d-sm-block">Close</span>
+                                                    </button>
+                                                    <button type="submit" class="btn btn-primary">Verifikasi</button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                </form>
 
 
+                                <form action="/pengesahanpkl/<?= $product->id_pkl; ?>" method="POST" enctype='multipart/form-data'>
+                                    <?php csrf_field() ?>
+                                    <input type="hidden" name="_method" value="PUT">
+                                    <input type="hidden" name="disetujui" value="2">
+
+                                    <div class="modal fade text-left" id="default2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="myModalLabel1">Tolak Lokasi PKL</h5>
+                                                    <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                                                        <i data-feather="x"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>
+                                                        Yakin Tolak Lokasi PKL ?<br><br>
+
+                                                        Nama Instansi : <?= $product->nama_instansi; ?> <br>
+                                                        Alamat Instansi : <?= $product->alamat_instansi; ?> <br>
+                                                        No. Telp. Instansi : <?= $product->no_instansi; ?> <br>
+                                                        <br>
+                                                        Alasan: <br>
+                                                        <textarea class="form-control" name="alasan" required id="exampleFormControlTextarea1" rows="3"></textarea>
+                                                    </p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn" data-bs-dismiss="modal">
+                                                        <i class="bx bx-x d-block d-sm-none"></i>
+                                                        <span class="d-none d-sm-block">Close</span>
+                                                    </button>
+                                                    <button type="submit" class="btn btn-danger">Tolak</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+
+                                <?php
+                                $this->session = session();
+                                if (($this->session->get('status') == "admin" || $this->session->get('status') == "prodi") && $product->disetujui == 0) {
+                                ?>
+                                    <button type="button" class="btn btn-primary block" data-bs-toggle="modal" data-bs-target="#default">
+                                        Verifikasi
+                                    </button>
+                                    <button type="button" class="btn btn-danger block" data-bs-toggle="modal" data-bs-target="#default2">
+                                        Tolak
+                                    </button>
+                                <?php
+                                }
+                                ?>
                             </div>
                             <!-- /.card-body -->
 
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </div>
-                        </div>
-                    </form>
 
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
-</div>
 
-</section>
+    </section>
 </div>
 
 <script>

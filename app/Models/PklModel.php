@@ -20,7 +20,17 @@ class PklModel extends Model
     public function getPkl()
     {
         $query =  $this->db->table('sp_pkl')
-            ->select('id_pkl,nama,npm,prodi,alamat_instansi')
+            ->select('id_pkl,nama,npm,prodi,alamat_instansi,disetujui')
+            ->get();
+        return $query;
+    }
+    public function getPklMahasiswa()
+    {
+        $session = session();
+        $npm = $session->get('npm');
+        $query =  $this->db->table('sp_pkl')
+            ->select('id_pkl,nama,npm,prodi,alamat_instansi,disetujui')
+            ->where(['npm' => $npm])
             ->get();
         return $query;
     }

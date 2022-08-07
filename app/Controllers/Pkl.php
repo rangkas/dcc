@@ -18,8 +18,11 @@ class Pkl extends ResourceController
 
     public function index()
     {
-        if ($this->session->get('status') == 'admin' || $this->session->get('status') == 'mahasiswa' || $this->session->get('status') == 'prodi') {
+        if ($this->session->get('status') == 'admin'  || $this->session->get('status') == 'prodi') {
             $dataProduct = $this->model->getPkl()->getResult();;
+            return view('pkl/pkl', ['produk' => $dataProduct]);
+        } elseif ($this->session->get('status') == 'mahasiswa') {
+            $dataProduct = $this->model->getPklMahasiswa()->getResult();;
             return view('pkl/pkl', ['produk' => $dataProduct]);
         } else {
             return redirect()->to('/');
@@ -212,99 +215,123 @@ class Pkl extends ResourceController
     public function update($id_pkl = null)
     {
 
-        $isi_nilai = $this->request->getVar('isi_nilai');
-
-        if ($isi_nilai == "1") {
-
-            $this->model->where('id_pkl', $id_pkl)->set([
-                'nilai_listening' => $this->request->getVar('nilai_listening'),
-                'nilai_struktur' => $this->request->getVar('nilai_struktur'),
-                'nilai_reading' => $this->request->getVar('nilai_reading'),
-            ])->update();
-
-            session()->setFlashdata('pesan', 'Nilai Berhasil di Input');
-
-            return redirect()->to('/pkl');
+        //Tangkap File Docx
+        $persyaratan = $this->request->getFile('persyaratan');
+        // cek logo, apakah logo tetap logo lama
+        if ($persyaratan->getError() == 4) {
+            $namaFilepersyaratan = $this->request->getVar('persyaratan_lama');
         } else {
-
-
-
-            //Tangkap File Docx
-            $persyaratan = $this->request->getFile('persyaratan');
-            // cek logo, apakah logo tetap logo lama
-            if ($persyaratan->getError() == 4) {
-                $namaFilepersyaratan = $this->request->getVar('persyaratan_lama');
-            } else {
-                //ambil nama file
-                $namaFilepersyaratan = $persyaratan->getName();
-                //pindahkan file
-                $persyaratan->move('uploads/pkl/persyaratan', $namaFilepersyaratan);
-            }
-
-
-            //Tangkap File Docx
-            $transkrip = $this->request->getFile('transkrip');
-            // cek logo, apakah logo tetap logo lama
-            if ($transkrip->getError() == 4) {
-                $namaFiletranskrip = $this->request->getVar('transkrip_lama');
-            } else {
-                //ambil nama file
-                $namaFiletranskrip = $transkrip->getName();
-                //pindahkan file
-                $transkrip->move('uploads/pkl/transkrip', $namaFiletranskrip);
-            }
-
-
-            //Tangkap File Docx
-            $sertifikat = $this->request->getFile('sertifikat');
-            // cek logo, apakah logo tetap logo lama
-            if ($sertifikat->getError() == 4) {
-                $namaFilesertifikat = $this->request->getVar('sertifikat_lama');
-            } else {
-                //ambil nama file
-                $namaFilesertifikat = $sertifikat->getName();
-                //pindahkan file
-                $sertifikat->move('uploads/pkl/sertifikat', $namaFilesertifikat);
-            }
-
-
-
-
-            //Tangkap File Docx
-            $frs = $this->request->getFile('frs');
-            // cek logo, apakah logo tetap logo lama
-            if ($frs->getError() == 4) {
-                $namaFilefrs = $this->request->getVar('frs_lama');
-            } else {
-                //ambil nama file
-                $namaFilefrs = $frs->getName();
-                //pindahkan file
-                $frs->move('uploads/pkl/frs', $namaFilefrs);
-            }
-
-
-
-            $this->model->where('id_pkl', $id_pkl)->set([
-
-                'nama' => $this->request->getVar('nama'),
-                'npm' => $this->request->getVar('npm'),
-                'prodi' => $this->request->getVar('prodi'),
-                'semester' => $this->request->getVar('semester'),
-                'nilai_prasyarat' => $this->request->getVar('nilai_prasyarat'),
-                'email' => $this->request->getVar('email'),
-                'no_hp' => $this->request->getVar('no_hp'),
-                'persyaratan' =>  $namaFilepersyaratan,
-                'transkrip' => $namaFiletranskrip,
-                'sertifikat' => $namaFilesertifikat,
-                'frs' => $namaFilefrs,
-                'nilai_listening' => $this->request->getVar('nilai_listening'),
-                'nilai_struktur' => $this->request->getVar('nilai_struktur'),
-                'nilai_reading' => $this->request->getVar('nilai_reading'),
-            ])->update();
-
-            session()->setFlashdata('pesan', 'Data Berhasil Diedit.');
-
-            return redirect()->to('/pkl');
+            //ambil nama file
+            $namaFilepersyaratan = $persyaratan->getName();
+            //pindahkan file
+            $persyaratan->move('uploads/pkl/persyaratan', $namaFilepersyaratan);
         }
+
+
+        //Tangkap File Docx
+        $transkrip = $this->request->getFile('transkrip');
+        // cek logo, apakah logo tetap logo lama
+        if ($transkrip->getError() == 4) {
+            $namaFiletranskrip = $this->request->getVar('transkrip_lama');
+        } else {
+            //ambil nama file
+            $namaFiletranskrip = $transkrip->getName();
+            //pindahkan file
+            $transkrip->move('uploads/pkl/transkrip', $namaFiletranskrip);
+        }
+
+
+        //Tangkap File Docx
+        $sertifikat = $this->request->getFile('sertifikat');
+        // cek logo, apakah logo tetap logo lama
+        if ($sertifikat->getError() == 4) {
+            $namaFilesertifikat = $this->request->getVar('sertifikat_lama');
+        } else {
+            //ambil nama file
+            $namaFilesertifikat = $sertifikat->getName();
+            //pindahkan file
+            $sertifikat->move('uploads/pkl/sertifikat', $namaFilesertifikat);
+        }
+
+        //Tangkap File Docx
+        $frs = $this->request->getFile('frs');
+        // cek logo, apakah logo tetap logo lama
+        if ($frs->getError() == 4) {
+            $namaFilefrs = $this->request->getVar('frs_lama');
+        } else {
+            //ambil nama file
+            $namaFilefrs = $frs->getName();
+            //pindahkan file
+            $frs->move('uploads/pkl/frs', $namaFilefrs);
+        }
+
+
+        //Tangkap File Docx
+        $pembayaran_pkl = $this->request->getFile('pembayaran_pkl');
+        // cek logo, apakah logo tetap logo lama
+        if ($pembayaran_pkl->getError() == 4) {
+            $namaFilepembayaran_pkl = $this->request->getVar('pembayaran_pkl_lama');
+        } else {
+            //ambil nama file
+            $namaFilepembayaran_pkl = $pembayaran_pkl->getName();
+            //pindahkan file
+            $pembayaran_pkl->move('uploads/pkl/pembayaran_pkl', $namaFilepembayaran_pkl);
+        }
+
+
+        //Tangkap File Docx
+        $surat_bekerja = $this->request->getFile('surat_bekerja');
+        // cek logo, apakah logo tetap logo lama
+        if ($surat_bekerja->getError() == 4) {
+            $namaFilesurat_bekerja = $this->request->getVar('surat_bekerja_lama');
+        } else {
+            //ambil nama file
+            $namaFilesurat_bekerja = $surat_bekerja->getName();
+            //pindahkan file
+            $surat_bekerja->move('uploads/pkl/surat_bekerja', $namaFilesurat_bekerja);
+        }
+
+        //Tangkap File Docx
+        $slip_gaji = $this->request->getFile('slip_gaji');
+        // cek logo, apakah logo tetap logo lama
+        if ($slip_gaji->getError() == 4) {
+            $namaFileslip_gaji = $this->request->getVar('slip_gaji_lama');
+        } else {
+            //ambil nama file
+            $namaFileslip_gaji = $slip_gaji->getName();
+            //pindahkan file
+            $slip_gaji->move('uploads/pkl/slip_gaji', $namaFileslip_gaji);
+        }
+
+        $this->model->where('id_pkl', $id_pkl)->set([
+
+            'nama' => $this->request->getVar('nama'),
+            'npm' => $this->request->getVar('npm'),
+            'prodi' => $this->request->getVar('prodi'),
+            'no_hp' => $this->request->getVar('no_hp'),
+
+            'nama_instansi' => $this->request->getVar('nama_instansi'),
+            'alamat_instansi' => $this->request->getVar('alamat_instansi'),
+            'jabatan' => $this->request->getVar('jabatan'),
+            'bidang' => $this->request->getVar('bidang'),
+
+            'lama_bekerja' => $this->request->getVar('lama_bekerja'),
+            'no_instansi' => $this->request->getVar('no_instansi'),
+
+
+            'persyaratan' =>  $namaFilepersyaratan,
+            'transkrip' => $namaFiletranskrip,
+            'sertifikat' => $namaFilesertifikat,
+            'frs' => $namaFilefrs,
+            'pembayaran_pkl' => $namaFilepembayaran_pkl,
+            'surat_bekerja' => $namaFilesurat_bekerja,
+            'slip_gaji' => $namaFileslip_gaji,
+
+
+        ])->update();
+
+        session()->setFlashdata('pesan', 'Data Berhasil Diedit.');
+
+        return redirect()->to('/pkl');
     }
 }

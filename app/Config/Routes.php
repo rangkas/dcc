@@ -25,6 +25,7 @@ $routes->setAutoRoute(true);
 $routes->resource('ukd');
 $routes->resource('toefl');
 $routes->resource('pkl');
+$routes->resource('pengesahanpkl');
 
 
 

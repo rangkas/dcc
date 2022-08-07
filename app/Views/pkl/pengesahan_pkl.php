@@ -11,16 +11,9 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4> Pendaftaran PKL
+                            <h4> Pengesahan Tempat PKL
 
-                                <?php $this->session = session(); ?>
-                                <?php if ($this->session->get('status') != "prodi") { ?>
-                                    <a href="/pkl/new" class="btn btn-primary">+ Daftar</a>
-                                <?php } else { ?>
-                                    <a href="/rekap" class="btn btn-primary">Rekap Nilai</a>
-                                <?php
-                                }
-                                ?>
+
 
                             </h4>
 
@@ -73,28 +66,23 @@
 
                                                         <td>
 
-
                                                             <div class="row">
+
                                                                 <div class="col-auto px-0">
-                                                                    <a href="/pkl/<?= $product->id_pkl; ?>/show" class="btn btn-success mr-2">Lihat</a>
-                                                                </div> &nbsp;
+                                                                    <?php
+                                                                    if ($product->disetujui == 0) {
+                                                                    ?>
+                                                                        <a href="/pkl/<?= $product->id_pkl; ?>/show" class="btn btn-primary mr-2">Verifikasi</a>
+                                                                    <?php
+                                                                    } else {
+                                                                    ?>
+                                                                        <a href="/pkl/<?= $product->id_pkl; ?>/show" class="btn btn-success mr-2">Lihat</a>
 
-                                                                <?php
-                                                                if ($product->disetujui == 0) {
-                                                                ?>
-                                                                    <div class="col-auto px-0">
-                                                                        <a href="/pkl/<?= $product->id_pkl; ?>/edit" class="btn btn-warning mr-2">Edit</a>
-                                                                    </div>&nbsp;
-                                                                    <div class="col-auto px-0">
-                                                                        <form action="/pkl/<?= $product->id_pkl; ?>" method="POST">
-                                                                            <input type="hidden" name="_method" value="DELETE">
-                                                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda Yakin ?') ">Delete</button>
-                                                                        </form>
-                                                                    </div>
+                                                                    <?php
+                                                                    }
+                                                                    ?>
 
-                                                                <?php
-                                                                }
-                                                                ?>
+                                                                </div>
                                                             </div>
 
                                                         </td>

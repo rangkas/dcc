@@ -18,8 +18,11 @@ class Toefl extends ResourceController
 
     public function index()
     {
-        if ($this->session->get('status') == 'admin' || $this->session->get('status') == 'mahasiswa' || $this->session->get('status') == 'prodi') {
+        if ($this->session->get('status') == 'admin' ||  $this->session->get('status') == 'prodi') {
             $dataProduct = $this->model->getToefl()->getResult();;
+            return view('sertifikasi/toefl', ['produk' => $dataProduct]);
+        } elseif ($this->session->get('status') == 'mahasiswa') {
+            $dataProduct = $this->model->getToeflMahasiswa()->getResult();;
             return view('sertifikasi/toefl', ['produk' => $dataProduct]);
         } else {
             return redirect()->to('/');
