@@ -27,7 +27,7 @@
             <div class="col-lg-5 col-12">
                 <div id="auth-left">
                     <div class="auth-logo">
-                        <a href="/"><img style="width:100%; height:100%;" src="<?php base_url(); ?>/assets/images/logo3.png"></a>
+                        <a href="/"><img style="width:100%; height:100%;" src="<?php base_url(); ?>/assets/images/logo/logo.png"></a>
                     </div>
 
 
