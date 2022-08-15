@@ -5,7 +5,7 @@ namespace App\Controllers;
 use CodeIgniter\RESTful\ResourceController;
 use App\Models\PklModel;
 
-class PengesahanPkl extends ResourceController
+class PembimbingPkl extends ResourceController
 
 {
 
@@ -19,8 +19,8 @@ class PengesahanPkl extends ResourceController
     public function index()
     {
         if ($this->session->get('status') == 'admin'  || $this->session->get('status') == 'prodi') {
-            $dataProduct = $this->model->getPkl()->getResult();;
-            return view('pkl/pengesahan_pkl', ['produk' => $dataProduct]);
+            $dataProduct = $this->model->getPembimbingPkl()->getResult();;
+            return view('pkl/pembimbing_pkl', ['produk' => $dataProduct]);
         } else {
             return redirect()->to('/');
         }
@@ -30,6 +30,7 @@ class PengesahanPkl extends ResourceController
     {
         //Mengubah Data Produk Hukum
         $dataProduct = $this->model->where('id_pkl', $id_pkl)->first();
+
         return view('/pkl/lihat_pkl', ['product' => $dataProduct]);
     }
 

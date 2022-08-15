@@ -26,6 +26,7 @@ $routes->resource('ukd');
 $routes->resource('toefl');
 $routes->resource('pkl');
 $routes->resource('pengesahanpkl');
+$routes->resource('pembimbingpkl');
 
 
 

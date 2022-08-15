@@ -31,7 +31,7 @@
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="<?php base_url(); ?>/home/home.php"><img src="<?php base_url(); ?>/assets/images/logo/logo.png" style="width:100%; height:100%;"></a>
+                            <a href="<?php base_url(); ?>/home"><img src="<?php base_url(); ?>/assets/images/logo/logo.png" style="width:100%; height:100%;"></a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -132,7 +132,7 @@
                                         <a href="/pengesahanpkl">Pengesahan Tempat PKL</a>
                                     </li>
                                     <li class="submenu-item ">
-                                        <a href="/pkl/pembimbing">Penentuan Pembimbing PKL</a>
+                                        <a href="/pembimbingpkl">Penentuan Pembimbing PKL</a>
                                     </li>
                                     <li class="submenu-item ">
                                         <a href="/pkl/nilai">Input Nilai</a>
@@ -221,7 +221,7 @@
             </header>
 
             <div class="page-heading">
-                <h3>Sistem Informasi Penunjang Prodi (SIPP)</h3>
+                <!-- <h3>Sistem Informasi Penunjang Prodi (SIPP)</h3> -->
             </div>
 
             <?= $this->renderSection('content') ?>
@@ -233,7 +233,7 @@
 
                     </div>
                     <div class="float-end">
-                        <p>AMIK DCC Pringsewu
+                        <!-- <p>AMIK DCC Pringsewu -->
                         </p>
                     </div>
                 </div>
