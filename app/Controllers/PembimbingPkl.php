@@ -13,6 +13,7 @@ class PembimbingPkl extends ResourceController
     {
         $this->session = session();
         $this->model = new \App\Models\PklModel();
+        $this->model2 = new \App\Models\DosenModel();
     }
 
 
@@ -30,8 +31,8 @@ class PembimbingPkl extends ResourceController
     {
         //Mengubah Data Produk Hukum
         $dataProduct = $this->model->where('id_pkl', $id_pkl)->first();
-
-        return view('/pkl/lihat_pkl', ['product' => $dataProduct]);
+        $dataDosen = $this->model2->getDosen();
+        return view('/pkl/input_pembimbing_pkl', ['product' => $dataProduct, 'dosen' => $dataDosen]);
     }
 
     public function update($id_pkl = null)
@@ -39,13 +40,12 @@ class PembimbingPkl extends ResourceController
 
         $this->model->where('id_pkl', $id_pkl)->set([
 
-            'disetujui' => $this->request->getVar('disetujui'),
-            'alasan' => $this->request->getVar('alasan'),
+            'dosen_pembimbing' => $this->request->getVar('dosen_pembimbing'),
 
         ])->update();
 
-        session()->setFlashdata('pesan', 'Tempat PKL Berhasil di Verifikasi');
+        session()->setFlashdata('pesan', 'Dosen Pembimbing Berhasil Di Tetapkan');
 
-        return redirect()->to('/pengesahanpkl');
+        return redirect()->to('/pembimbingpkl');
     }
 }

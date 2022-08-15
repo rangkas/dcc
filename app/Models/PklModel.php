@@ -20,7 +20,7 @@ class PklModel extends Model
     public function getPkl()
     {
         $query =  $this->db->table('sp_pkl')
-            ->select('id_pkl,nama,npm,prodi,alamat_instansi,disetujui')
+            ->select('id_pkl,nama,npm,prodi,alamat_instansi,disetujui,dosen_pembimbing')
             ->get();
         return $query;
     }
@@ -29,7 +29,7 @@ class PklModel extends Model
         $session = session();
         $npm = $session->get('npm');
         $query =  $this->db->table('sp_pkl')
-            ->select('id_pkl,nama,npm,prodi,alamat_instansi,disetujui')
+            ->select('id_pkl,nama,npm,prodi,alamat_instansi,disetujui,dosen_pembimbing')
             ->where(['npm' => $npm])
             ->get();
         return $query;
@@ -38,7 +38,7 @@ class PklModel extends Model
     public function getPembimbingPkl()
     {
         $query =  $this->db->table('sp_pkl')
-            ->select('id_pkl,nama,npm,prodi,alamat_instansi,disetujui')
+            ->select('id_pkl,nama,npm,prodi,alamat_instansi,disetujui,dosen_pembimbing')
             ->where(['disetujui' => 1])
             ->get();
         return $query;

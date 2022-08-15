@@ -36,6 +36,7 @@
                                                     <th>NPM</th>
                                                     <th>Prodi</th>
                                                     <th>Alamat Instansi</th>
+                                                    <th>Dosen Pembimbing</th>
                                                     <th width="20%">Aksi</th>
                                                 </tr>
                                             </thead>
@@ -51,20 +52,20 @@
                                                         </td>
                                                         <td><?= $product->prodi; ?></td>
                                                         <td><?= $product->alamat_instansi; ?></td>
-
+                                                        <td><?= $product->dosen_pembimbing; ?></td>
                                                         <td>
 
                                                             <div class="row">
 
                                                                 <div class="col-auto px-0">
                                                                     <?php
-                                                                    if ($product->dosen_pembimbing == 0) {
+                                                                    if ($product->dosen_pembimbing == "0") {
                                                                     ?>
-                                                                        <a href="/pkl/<?= $product->id_pkl; ?>/show" class="btn btn-primary mr-2">Isi Pembimbing</a>
+                                                                        <a href="/pembimbingpkl/<?= $product->id_pkl; ?>/show" class="btn btn-primary mr-2">Isi Pembimbing</a>
                                                                     <?php
                                                                     } else {
                                                                     ?>
-                                                                        <a href="/pkl/<?= $product->id_pkl; ?>/show" class="btn btn-success mr-2">Lihat</a>
+                                                                        <a href="/pembimbingpkl/<?= $product->id_pkl; ?>/show" class="btn btn-success mr-2">Lihat</a>
 
                                                                     <?php
                                                                     }
