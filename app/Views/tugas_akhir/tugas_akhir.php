@@ -11,9 +11,16 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4> Pengesahan Tempat PKL
+                            <h4> Pendaftaran Tugas Akhir
 
-
+                                <?php $this->session = session(); ?>
+                                <?php if ($this->session->get('status') != "prodi") { ?>
+                                    <a href="/judulta/new" class="btn btn-primary">+ Daftar</a>
+                                <?php } else { ?>
+                                    <a href="/rekap" class="btn btn-primary">Rekap Nilai</a>
+                                <?php
+                                }
+                                ?>
 
                             </h4>
 
@@ -35,8 +42,8 @@
                                                     <th>Nama</th>
                                                     <th>NPM</th>
                                                     <th>Prodi</th>
-                                                    <th>Alamat Instansi</th>
-                                                    <th>Status</th>
+                                                    <th>Judul 1 </th>
+                                                    <th>Judul 2</th>
                                                     <th width="20%">Aksi</th>
                                                 </tr>
                                             </thead>
@@ -51,38 +58,31 @@
                                                             <?= $product->npm; ?>
                                                         </td>
                                                         <td><?= $product->prodi; ?></td>
-                                                        <td><?= $product->alamat_instansi; ?></td>
+                                                        <td><?= $product->judul1; ?></td>
                                                         <td>
-                                                            <?php
-                                                            if ($product->disetujui == 1) {
-                                                                echo " <span class='badge bg-success'>Disetujui</span>";
-                                                            } elseif ($product->disetujui == 2) {
-                                                                echo "<span class='badge bg-danger'>Ditolak</span>";
-                                                            } else {
-                                                                echo "<span class='badge bg-secondary'>Diproses</span>";
-                                                            }
-                                                            ?>
+                                                            <?= $product->judul2; ?>
                                                         </td>
 
                                                         <td>
 
+
                                                             <div class="row">
+                                                                <div class="col-auto px-0">
+                                                                    <a href="/judulta/<?= $product->id_judul_ta; ?>/show" class="btn btn-success mr-2">Lihat</a>
+                                                                </div> &nbsp;
+
 
                                                                 <div class="col-auto px-0">
-                                                                    <?php
-                                                                    if ($product->disetujui == 0) {
-                                                                    ?>
-                                                                        <a href="/pkl/<?= $product->id_pkl; ?>/show" class="btn btn-primary mr-2">Verifikasi</a>
-                                                                    <?php
-                                                                    } else {
-                                                                    ?>
-                                                                        <a href="/pkl/<?= $product->id_pkl; ?>/show" class="btn btn-success mr-2">Lihat</a>
-
-                                                                    <?php
-                                                                    }
-                                                                    ?>
-
+                                                                    <a href="/judulta/<?= $product->id_judul_ta; ?>/edit" class="btn btn-warning mr-2">Edit</a>
+                                                                </div>&nbsp;
+                                                                <div class="col-auto px-0">
+                                                                    <form action="/judulta/<?= $product->id_judul_ta; ?>" method="POST">
+                                                                        <input type="hidden" name="_method" value="DELETE">
+                                                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda Yakin ?') ">Delete</button>
+                                                                    </form>
                                                                 </div>
+
+
                                                             </div>
 
                                                         </td>

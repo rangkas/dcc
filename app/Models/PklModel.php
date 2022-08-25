@@ -43,4 +43,13 @@ class PklModel extends Model
             ->get();
         return $query;
     }
+
+    public function getNilaiPkl()
+    {
+        $query =  $this->db->table('sp_pkl')
+            ->select('id_pkl,nama,npm,prodi,alamat_instansi,disetujui,dosen_pembimbing,nilai_dosen_pembimbing,nilai_pembimbing_instansi')
+            ->where('dosen_pembimbing !=', '0')
+            ->get();
+        return $query;
+    }
 }

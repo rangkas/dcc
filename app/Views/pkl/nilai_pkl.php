@@ -11,10 +11,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4> Pengesahan Tempat PKL
-
-
-
+                            <h4> Penentuan Pembimbing PKL
                             </h4>
 
                             <?php if (!empty(session()->getFlashdata('pesan'))) : ?>
@@ -36,7 +33,7 @@
                                                     <th>NPM</th>
                                                     <th>Prodi</th>
                                                     <th>Alamat Instansi</th>
-                                                    <th>Status</th>
+                                                    <th>Dosen Pembimbing</th>
                                                     <th width="20%">Aksi</th>
                                                 </tr>
                                             </thead>
@@ -52,32 +49,20 @@
                                                         </td>
                                                         <td><?= $product->prodi; ?></td>
                                                         <td><?= $product->alamat_instansi; ?></td>
-                                                        <td>
-                                                            <?php
-                                                            if ($product->disetujui == 1) {
-                                                                echo " <span class='badge bg-success'>Disetujui</span>";
-                                                            } elseif ($product->disetujui == 2) {
-                                                                echo "<span class='badge bg-danger'>Ditolak</span>";
-                                                            } else {
-                                                                echo "<span class='badge bg-secondary'>Diproses</span>";
-                                                            }
-                                                            ?>
-                                                        </td>
-
+                                                        <td><?= $product->dosen_pembimbing; ?></td>
                                                         <td>
 
                                                             <div class="row">
 
                                                                 <div class="col-auto px-0">
                                                                     <?php
-                                                                    if ($product->disetujui == 0) {
+                                                                    if ($product->nilai_dosen_pembimbing == "0") {
                                                                     ?>
-                                                                        <a href="/pkl/<?= $product->id_pkl; ?>/show" class="btn btn-primary mr-2">Verifikasi</a>
+                                                                        <a href="/nilaipkl/<?= $product->id_pkl; ?>/show" class="btn btn-primary mr-2">Isi Nilai</a>
                                                                     <?php
                                                                     } else {
                                                                     ?>
-                                                                        <a href="/pkl/<?= $product->id_pkl; ?>/show" class="btn btn-success mr-2">Lihat</a>
-
+                                                                        <a href="/nilaipkl/<?= $product->id_pkl; ?>/show" class="btn btn-success mr-2">Lihat</a>
                                                                     <?php
                                                                     }
                                                                     ?>

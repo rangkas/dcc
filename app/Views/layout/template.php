@@ -135,7 +135,7 @@
                                         <a href="/pembimbingpkl">Penentuan Pembimbing PKL</a>
                                     </li>
                                     <li class="submenu-item ">
-                                        <a href="/pkl/nilai">Input Nilai</a>
+                                        <a href="/nilaipkl">Input Nilai</a>
                                     </li>
                                     <!-- <li class="submenu-item ">
                                         <a href="/pkl/rekap">Rekap Nilai</a>
@@ -161,7 +161,7 @@
                                     $this->session = session();
                                 ?>
                                     <li class="submenu-item ">
-                                        <a href="/tugasakhir/judul">Pengajuan Judul</a>
+                                        <a href="/judulta">Pengajuan Judul</a>
                                     </li>
                                     <li class="submenu-item ">
                                         <a href="/tugasakhir/bukti">Bukti Pengajuan</a>
