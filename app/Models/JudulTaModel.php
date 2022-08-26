@@ -18,7 +18,7 @@ class JudulTaModel extends Model
     public function getJudulTa()
     {
         $query =  $this->db->table('sp_judul_ta')
-            ->select('id_judul_ta,nama,npm,prodi,judul1,judul2')
+            ->select('id_judul_ta,nama,npm,prodi,judul1,judul2,judul_disetujui')
             ->get();
         return $query;
     }
@@ -27,7 +27,7 @@ class JudulTaModel extends Model
         $session = session();
         $npm = $session->get('npm');
         $query =  $this->db->table('sp_judul_ta')
-            ->select('id_judul_ta,nama,npm,prodi,judul1,judul2')
+            ->select('id_judul_ta,nama,npm,prodi,judul1,judul2,judul_disetujui')
             ->where(['npm' => $npm])
             ->get();
         return $query;

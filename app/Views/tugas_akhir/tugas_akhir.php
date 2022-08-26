@@ -44,6 +44,7 @@
                                                     <th>Prodi</th>
                                                     <th>Judul 1 </th>
                                                     <th>Judul 2</th>
+                                                    <th>Status</th>
                                                     <th width="20%">Aksi</th>
                                                 </tr>
                                             </thead>
@@ -59,13 +60,17 @@
                                                         </td>
                                                         <td><?= $product->prodi; ?></td>
                                                         <td><?= $product->judul1; ?></td>
+                                                        <td> <?= $product->judul2; ?> </td>
+                                                        <td> <?php
+                                                                if ($product->judul_disetujui == 1) {
+                                                                    echo " <span class='badge bg-success'>Disetujui</span>";
+                                                                } elseif ($product->judul_disetujui == 2) {
+                                                                    echo "<span class='badge bg-danger'>Ditolak</span>";
+                                                                } else {
+                                                                    echo "<span class='badge bg-secondary'>Diproses</span>";
+                                                                }
+                                                                ?> </td>
                                                         <td>
-                                                            <?= $product->judul2; ?>
-                                                        </td>
-
-                                                        <td>
-
-
                                                             <div class="row">
                                                                 <div class="col-auto px-0">
                                                                     <a href="/judulta/<?= $product->id_judul_ta; ?>/show" class="btn btn-success mr-2">Lihat</a>
